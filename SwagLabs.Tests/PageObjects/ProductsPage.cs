@@ -2,7 +2,7 @@
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public class ProductsPage : SwagLabsBase
+    public class ProductsPage : SwagLabsPageBase
     {
         public ProductsPage(IWebDriver driver) : base(driver)
         {

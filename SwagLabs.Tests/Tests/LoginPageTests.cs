@@ -1,18 +1,25 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
+﻿using SwagLabs.Tests.Definitions;
 using SwagLabs.Tests.PageObjects;
 
 namespace SwagLabs.Tests.Tests
 {
-    [TestFixture]
-    public class LoginPageTests
+    [TestFixture(BrowserType.Chrome)]
+    [TestFixture(BrowserType.Edge)]
+    [Parallelizable(ParallelScope.All)]
+    public class LoginPageTests : SwagLabsTestBase
     {
+        private readonly BrowserType _browserType;
+
+        public LoginPageTests(BrowserType browserType)
+        {
+            _browserType = browserType;
+        }
+
         [Test]
         public void Test_LoginPageCanBeOpen()
         {
-            var chromeOptions = new ChromeOptions();
-            using var driver = new RemoteWebDriver(chromeOptions);
-            var loginPage = SwagLabsBase.NavigateTo<LoginPage>(driver);
+            using var browser = StartBrowser(_browserType);
+            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
             Assert.IsTrue(loginPage.IsPresent());
         }
 
@@ -23,13 +30,23 @@ namespace SwagLabs.Tests.Tests
         [TestCase("", "invalid_password", LoginPage.MissingUsernameErrorMessage)]
         public void Test_Login_Negative(string username, string password, string error)
         {
-            var chromeOptions = new ChromeOptions();
-            using var driver = new RemoteWebDriver(chromeOptions);
-            var loginPage = SwagLabsBase.NavigateTo<LoginPage>(driver);
+            using var browser = StartBrowser(_browserType);
+            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
             var productPage = loginPage.Login(username, password);
             Assert.IsTrue(loginPage.IsPresent());
             Assert.IsFalse(productPage.IsPresent());
             Assert.That(loginPage.GetErrorMessage(), Is.EqualTo(error));
+        }
+
+        [Test]
+        [TestCase("standard_user", "secret_sauce")]
+        public void Test_Login_Positive(string username, string password)
+        {
+            using var browser = StartBrowser(_browserType);
+            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
+            var productPage = loginPage.Login(username, password);
+            Assert.IsTrue(productPage.IsPresent());
+            Assert.IsFalse(loginPage.IsPresent());
         }
     }
 }

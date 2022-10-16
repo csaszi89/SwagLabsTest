@@ -2,7 +2,7 @@
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public class LoginPage : SwagLabsBase
+    public class LoginPage : SwagLabsPageBase
     {
         public const string InvalidLoginDataErrorMessage = "Epic sadface: Username and password do not match any user in this service";
         public const string MissingUsernameErrorMessage = "Epic sadface: Username is required";
