@@ -7,6 +7,7 @@ namespace SwagLabs.Tests.PageObjects
         public const string InvalidLoginDataErrorMessage = "Epic sadface: Username and password do not match any user in this service";
         public const string MissingUsernameErrorMessage = "Epic sadface: Username is required";
         public const string MissingPasswordErrorMessage = "Epic sadface: Password is required";
+        public const string UserLockedErrorMessage = "Epic sadface: Sorry, this user has been locked out.";
 
         public LoginPage(IWebDriver driver) : base(driver)
         {

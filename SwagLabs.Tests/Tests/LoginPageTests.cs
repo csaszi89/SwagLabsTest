@@ -28,6 +28,7 @@ namespace SwagLabs.Tests.Tests
         [TestCase("invalid_username", "invalid_password", LoginPage.InvalidLoginDataErrorMessage)]
         [TestCase("invalid_username", "", LoginPage.MissingPasswordErrorMessage)]
         [TestCase("", "invalid_password", LoginPage.MissingUsernameErrorMessage)]
+        [TestCase("locked_out_user", "secret_sauce", LoginPage.UserLockedErrorMessage)]
         public void Test_Login_Negative(string username, string password, string error)
         {
             using var browser = StartBrowser(_browserType);
