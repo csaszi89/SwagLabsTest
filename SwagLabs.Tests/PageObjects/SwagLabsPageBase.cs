@@ -18,18 +18,5 @@ namespace SwagLabs.Tests.PageObjects
         {
             return _driver.Url == Url;
         }
-
-        public static T NavigateTo<T>(IWebDriver driver) where T : SwagLabsPageBase
-        {
-            T page = (T)Activator.CreateInstance(typeof(T), new object[] { driver });
-
-            if (page == null)
-            {
-                throw new Exception("Page could not be instantiated");
-            }
-
-            driver.Navigate().GoToUrl(page.Url);
-            return page;
-        }
     }
 }

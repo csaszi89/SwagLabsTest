@@ -1,4 +1,5 @@
 ﻿using SwagLabs.Tests.Definitions;
+using SwagLabs.Tests.Extensions;
 using SwagLabs.Tests.PageObjects;
 
 namespace SwagLabs.Tests.Tests
@@ -19,7 +20,7 @@ namespace SwagLabs.Tests.Tests
         public void Test_LoginPageCanBeOpen()
         {
             using var browser = StartBrowser(_browserType);
-            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
+            var loginPage = browser.GoToPage<LoginPage>();
             Assert.IsTrue(loginPage.IsPresent());
         }
 
@@ -32,7 +33,7 @@ namespace SwagLabs.Tests.Tests
         public void Test_Login_Negative(string username, string password, string error)
         {
             using var browser = StartBrowser(_browserType);
-            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
+            var loginPage = browser.GoToPage<LoginPage>();
             var productPage = loginPage.Login(username, password);
             Assert.IsTrue(loginPage.IsPresent());
             Assert.IsFalse(productPage.IsPresent());
@@ -44,7 +45,7 @@ namespace SwagLabs.Tests.Tests
         public void Test_Login_Positive(string username, string password)
         {
             using var browser = StartBrowser(_browserType);
-            var loginPage = SwagLabsPageBase.NavigateTo<LoginPage>(browser);
+            var loginPage = browser.GoToPage<LoginPage>();
             var productPage = loginPage.Login(username, password);
             Assert.IsTrue(productPage.IsPresent());
             Assert.IsFalse(loginPage.IsPresent());

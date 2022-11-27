@@ -8,6 +8,7 @@ namespace SwagLabs.Tests.PageObjects
         public const string MissingUsernameErrorMessage = "Epic sadface: Username is required";
         public const string MissingPasswordErrorMessage = "Epic sadface: Password is required";
         public const string UserLockedErrorMessage = "Epic sadface: Sorry, this user has been locked out.";
+        public const string UnauthorizedErrorMessage = "Epic sadface: You can only access '/inventory.html' when you are logged in.";
 
         public LoginPage(IWebDriver driver) : base(driver)
         {
