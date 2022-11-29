@@ -37,5 +37,41 @@ namespace SwagLabs.Tests.Tests
             Assert.IsNotNull(products);
             Assert.That(products.Count, Is.EqualTo(6));
         }
+
+        [Test]
+        public void Test_SortProducts()
+        {
+            var firstProduct = "Sauce Labs Backpack";
+            var lastProduct = "Test.allTheThings() T-Shirt (Red)";
+            var lowestPriceProduct = "Sauce Labs Onesie";
+            var highestPriceProduct = "Sauce Labs Fleece Jacket";
+
+            using var browser = StartBrowser(_browserType);
+            var loginPage = browser.GoToPage<LoginPage>();
+            var productsPage = loginPage.Login("standard_user", "secret_sauce");
+
+            // Default
+            var products = productsPage.GetProducts().ToList();
+            Assert.That(products.First().Name, Is.EqualTo(firstProduct));
+            Assert.That(products.Last().Name, Is.EqualTo(lastProduct));
+
+            // Name (Z to A)
+            productsPage.SelectOrder("Name (Z to A)");
+            products = productsPage.GetProducts().ToList();
+            Assert.That(products.First().Name, Is.EqualTo(lastProduct));
+            Assert.That(products.Last().Name, Is.EqualTo(firstProduct));
+
+            // Price (low to high)
+            productsPage.SelectOrder("Price (low to high)");
+            products = productsPage.GetProducts().ToList();
+            Assert.That(products.First().Name, Is.EqualTo(lowestPriceProduct));
+            Assert.That(products.Last().Name, Is.EqualTo(highestPriceProduct));
+
+            // Price (low to high)
+            productsPage.SelectOrder("Price (high to low)");
+            products = productsPage.GetProducts().ToList();
+            Assert.That(products.First().Name, Is.EqualTo(highestPriceProduct));
+            Assert.That(products.Last().Name, Is.EqualTo(lowestPriceProduct));
+        }
     }
 }

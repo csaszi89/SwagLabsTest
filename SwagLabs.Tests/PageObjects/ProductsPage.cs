@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SwagLabs.Tests.Models;
 
 namespace SwagLabs.Tests.PageObjects
@@ -13,6 +14,8 @@ namespace SwagLabs.Tests.PageObjects
 
         private IWebElement ProductsList => _driver.FindElement(By.ClassName("inventory_list"));
 
+        private IWebElement OrderSelect => _driver.FindElement(By.ClassName("product_sort_container"));
+
         public IEnumerable<Product> GetProducts()
         {
             var elements = ProductsList.FindElements(By.ClassName("inventory_item"));
@@ -21,6 +24,12 @@ namespace SwagLabs.Tests.PageObjects
             {
                 yield return new Product(element);
             }
+        }
+
+        public void SelectOrder(string value)
+        {
+            var element = new SelectElement(OrderSelect);
+            element.SelectByText(value);
         }
     }
 }
