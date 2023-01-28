@@ -22,7 +22,7 @@ namespace SwagLabs.Tests.Tests
                 default:
                     throw new NotSupportedException($"Browser {browserType} not supported");
             }
-            return new RemoteWebDriver(options);
+            return new RemoteWebDriver(new Uri("http://localhost:4444/"), options);
         }
     }
 }
