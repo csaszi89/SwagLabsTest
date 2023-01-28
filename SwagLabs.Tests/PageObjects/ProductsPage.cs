@@ -31,5 +31,15 @@ namespace SwagLabs.Tests.PageObjects
             var element = new SelectElement(OrderSelect);
             element.SelectByText(value);
         }
+
+        public void AddProductToCart(Product product)
+        {
+            product.AddToCartButton.Click();
+        }
+
+        public void RemoveProductFromCart(Product product)
+        {
+            product.RemoveButton.Click();
+        }
     }
 }

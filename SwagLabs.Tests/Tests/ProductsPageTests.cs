@@ -1,5 +1,7 @@
-﻿using SwagLabs.Tests.Definitions;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using SwagLabs.Tests.Definitions;
 using SwagLabs.Tests.Extensions;
+using SwagLabs.Tests.Models;
 using SwagLabs.Tests.PageObjects;
 
 namespace SwagLabs.Tests.Tests
@@ -72,6 +74,30 @@ namespace SwagLabs.Tests.Tests
             products = productsPage.GetProducts().ToList();
             Assert.That(products.First().Name, Is.EqualTo(highestPriceProduct));
             Assert.That(products.Last().Name, Is.EqualTo(lowestPriceProduct));
+        }
+
+        [Test]
+        public void Test_CartOperations()
+        {
+            using var browser = StartBrowser(_browserType);
+            var loginPage = browser.GoToPage<LoginPage>();
+            var productsPage = loginPage.Login("standard_user", "secret_sauce");
+            var navigation = browser.GetPage<Navigation>();
+
+            var product1 = productsPage.GetProducts().First(p => p.Name == "Sauce Labs Backpack");
+            var product2 = productsPage.GetProducts().First(p => p.Name == "Sauce Labs Bike Light");
+
+            productsPage.AddProductToCart(product1);
+            Assert.That(navigation.GetCartProductsCount(), Is.EqualTo(1));
+
+            productsPage.AddProductToCart(product2);
+            Assert.That(navigation.GetCartProductsCount(), Is.EqualTo(2));
+
+            productsPage.RemoveProductFromCart(product2);
+            Assert.That(navigation.GetCartProductsCount(), Is.EqualTo(1));
+
+            productsPage.RemoveProductFromCart(product1);
+            Assert.That(navigation.GetCartProductsCount(), Is.EqualTo(0));
         }
     }
 }
