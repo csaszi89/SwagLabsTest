@@ -4,7 +4,6 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 using SwagLabs.Tests.AUT;
 using SwagLabs.Tests.Definitions;
-using SwagLabs.Tests.Extensions;
 
 namespace SwagLabs.Tests.Tests
 {

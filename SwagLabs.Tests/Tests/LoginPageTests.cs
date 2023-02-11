@@ -6,7 +6,6 @@ namespace SwagLabs.Tests.Tests
 {
     [TestFixture(BrowserType.Chrome)]
     [TestFixture(BrowserType.Edge)]
-    [Parallelizable(ParallelScope.Fixtures)]
     public class LoginPageTests : TestBase
     {
         public LoginPageTests(BrowserType browserType) : base(browserType)
