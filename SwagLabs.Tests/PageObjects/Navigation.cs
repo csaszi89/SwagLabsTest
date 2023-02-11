@@ -1,14 +1,15 @@
 ﻿using OpenQA.Selenium;
+using SwagLabs.Tests.AUT;
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public class Navigation : SwagLabsPageBase
+    public class Navigation : PageBase
     {
         public Navigation(IWebDriver driver) : base(driver)
         {
         }
 
-        public override string Url => BaseUrl;
+        public override string Url => SwagLabsWebSite.BaseUrl;
 
         private IWebElement CartLink => _driver.FindElement(By.ClassName("shopping_cart_link"));
 

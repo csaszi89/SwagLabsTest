@@ -2,12 +2,11 @@
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public abstract class SwagLabsPageBase
+    public abstract class PageBase
     {
-        protected const string BaseUrl = "https://www.saucedemo.com/";
         protected readonly IWebDriver _driver;
 
-        public SwagLabsPageBase(IWebDriver driver)
+        public PageBase(IWebDriver driver)
         {
             _driver = driver;
         }
@@ -17,6 +16,11 @@ namespace SwagLabs.Tests.PageObjects
         public bool IsPresent()
         {
             return _driver.Url == Url;
+        }
+
+        public void Navigate()
+        {
+            _driver.Navigate().GoToUrl(Url);
         }
     }
 }

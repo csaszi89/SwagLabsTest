@@ -1,16 +1,17 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SwagLabs.Tests.AUT;
 using SwagLabs.Tests.Models;
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public class ProductsPage : SwagLabsPageBase
+    public class ProductsPage : PageBase
     {
         public ProductsPage(IWebDriver driver) : base(driver)
         {
         }
 
-        public override string Url => $"{BaseUrl}inventory.html";
+        public override string Url => $"{SwagLabsWebSite.BaseUrl}inventory.html";
 
         private IWebElement ProductsList => _driver.FindElement(By.ClassName("inventory_list"));
 

@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
+using SwagLabs.Tests.AUT;
 
 namespace SwagLabs.Tests.PageObjects
 {
-    public class LoginPage : SwagLabsPageBase
+    public class LoginPage : PageBase
     {
         public const string InvalidLoginDataErrorMessage = "Epic sadface: Username and password do not match any user in this service";
         public const string MissingUsernameErrorMessage = "Epic sadface: Username is required";
@@ -24,7 +25,7 @@ namespace SwagLabs.Tests.PageObjects
 
         private IWebElement ErrorMessage => ErrorContainer.FindElement(By.TagName("h3"));
 
-        public override string Url => BaseUrl;
+        public override string Url => SwagLabsWebSite.BaseUrl;
 
         public void EnterLoginData(string username, string password)
         {
@@ -34,11 +35,10 @@ namespace SwagLabs.Tests.PageObjects
 
         public void ClickLoginButton() => LoginButton.Click();
 
-        public ProductsPage Login(string username, string password)
+        public void Login(string username, string password)
         {
             EnterLoginData(username, password);
             ClickLoginButton();
-            return new ProductsPage(_driver);
         }
 
         public string GetErrorMessage() => ErrorMessage.Text;

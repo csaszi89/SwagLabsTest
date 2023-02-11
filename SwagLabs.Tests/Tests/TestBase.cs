@@ -2,13 +2,40 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
+using SwagLabs.Tests.AUT;
 using SwagLabs.Tests.Definitions;
+using SwagLabs.Tests.Extensions;
 
 namespace SwagLabs.Tests.Tests
 {
-    public class SwagLabsTestBase
+    [TestFixture]
+    public class TestBase
     {
-        protected IWebDriver StartBrowser(BrowserType browserType)
+        private readonly BrowserType _browserType;
+
+        public TestBase(BrowserType browserType)
+        {
+            _browserType = browserType;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            Browser = StartBrowser(_browserType);
+            SwagLabsWebSite = new SwagLabsWebSite(Browser);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            SwagLabsWebSite.Dispose();
+        }
+
+        protected IWebDriver Browser { get; private set; }
+
+        protected SwagLabsWebSite SwagLabsWebSite { get; private set; }
+
+        private IWebDriver StartBrowser(BrowserType browserType)
         {
             DriverOptions options;
             switch (browserType)
