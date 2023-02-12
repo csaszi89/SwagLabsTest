@@ -4,6 +4,7 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Remote;
 using SwagLabs.Tests.AUT;
 using SwagLabs.Tests.Definitions;
+using SwagLabs.Tests.Utils;
 
 namespace SwagLabs.Tests.Tests
 {
@@ -15,6 +16,15 @@ namespace SwagLabs.Tests.Tests
         public TestBase(BrowserType browserType)
         {
             _browserType = browserType;
+        }
+
+        [OneTimeSetUp]
+        public async Task OneTimeSetUp()
+        {
+            var dockerHandler = new DockerHandler(_browserType);
+            await dockerHandler.InitializeNetwork();
+            await dockerHandler.InitializeHub();
+            await dockerHandler.InitializeNode();
         }
 
         [SetUp]
