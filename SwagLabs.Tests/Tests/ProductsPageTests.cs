@@ -4,11 +4,9 @@ using SwagLabs.Tests.PageObjects;
 
 namespace SwagLabs.Tests.Tests
 {
-    [TestFixture(BrowserType.Chrome)]
-    [TestFixture(BrowserType.Edge)]
     public class ProductsPageTests : TestBase
     {
-        public ProductsPageTests(BrowserType browserType) : base(browserType)
+        public ProductsPageTests(BrowserType browserType, string browserVersion) : base(browserType, browserVersion)
         {
         }
 

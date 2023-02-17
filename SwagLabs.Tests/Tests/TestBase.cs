@@ -7,14 +7,19 @@ using SwagLabs.Tests.Definitions;
 
 namespace SwagLabs.Tests.Tests
 {
-    [TestFixture]
+    [TestFixture(BrowserType.Chrome, "110")]
+    [TestFixture(BrowserType.MicrosoftEdge, "110")]
+    [TestFixture(BrowserType.Chrome, "109")]
+    [TestFixture(BrowserType.MicrosoftEdge, "109")]
     public class TestBase
     {
         private readonly BrowserType _browserType;
+        private readonly string _browserVersion;
 
-        public TestBase(BrowserType browserType)
+        public TestBase(BrowserType browserType, string browserVersion)
         {
             _browserType = browserType;
+            _browserVersion = browserVersion;
         }
 
         [SetUp]
@@ -42,12 +47,13 @@ namespace SwagLabs.Tests.Tests
                 case BrowserType.Chrome:
                     options = new ChromeOptions();
                     break;
-                case BrowserType.Edge:
+                case BrowserType.MicrosoftEdge:
                     options = new EdgeOptions();
                     break;
                 default:
                     throw new NotSupportedException($"Browser {browserType} not supported");
             }
+            options.BrowserVersion = _browserVersion;
             return new RemoteWebDriver(new Uri("http://localhost:4444/"), options);
         }
     }
