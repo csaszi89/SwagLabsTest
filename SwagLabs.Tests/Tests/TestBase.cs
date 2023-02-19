@@ -7,10 +7,10 @@ using SwagLabs.Tests.Definitions;
 
 namespace SwagLabs.Tests.Tests
 {
-    [TestFixture(BrowserType.Chrome, "110")]
-    [TestFixture(BrowserType.MicrosoftEdge, "110")]
-    [TestFixture(BrowserType.Chrome, "109")]
-    [TestFixture(BrowserType.MicrosoftEdge, "109")]
+    [TestFixture(BrowserType.Chrome, "latest")]
+    [TestFixture(BrowserType.MicrosoftEdge, "latest")]
+    [TestFixture(BrowserType.Chrome, "dev")]
+    [TestFixture(BrowserType.MicrosoftEdge, "dev")]
     public class TestBase
     {
         private readonly BrowserType _browserType;

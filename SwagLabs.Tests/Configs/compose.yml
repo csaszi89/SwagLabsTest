@@ -1,0 +1,56 @@
+# To execute this docker-compose yml file use `docker-compose -f compose.yml up`
+# Add the `-d` flag at the end for detached execution
+# To stop the execution, hit Ctrl+C, and then `docker-compose -f compose.yml down`
+version: "3"
+services:
+  chrome_dev:
+    image: selenium/node-chrome:dev
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_STEREOTYPE={"browserName":"chrome","browserVersion":"dev","platformName":"Windows"}
+      
+  chrome_latest:
+    image: selenium/node-chrome:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_STEREOTYPE={"browserName":"chrome","browserVersion":"latest","platformName":"Windows"}
+
+  edge_dev:
+    image: selenium/node-edge:dev
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_STEREOTYPE={"browserName":"MicrosoftEdge","browserVersion":"dev","platformName":"Windows"}
+      
+  edge_latest:
+    image: selenium/node-edge:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_STEREOTYPE={"browserName":"MicrosoftEdge","browserVersion":"latest","platformName":"Windows"}
+
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"

@@ -18,4 +18,8 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configs\" />
+  </ItemGroup>
+
 </Project>
